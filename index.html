@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Monitiring_System</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="header">MRI_Technical_Room</h1>
+    </header>
+
+    <div class="container">
+      <h1 class="title">Sensor Reading</h1>
+      <hr />
+
+      <!-- Room Temperature -->
+      <img src="icons/low-temperature.png" alt="temperature" height="40px" />
+      <h1 class="sens">Temperature</h1>
+      <div class="temperature sensR" id="Temperature"></div>
+      <div class="sensR symb">&#8451;</div>
+      <hr />
+
+      <!-- Room Humidity -->
+      <img src="icons/humidity.png" alt="humidity" height="40px" />
+      <h1 class="sens">Humidity</h1>
+      <div class="humidity sensR" id="Humidity"></div>
+      <div class="sensR symb">%</div>
+      <hr />
+
+      <!-- Smoke -->
+      <img src="icons/smoke.jpg" alt="heart rate" height="40px" />
+      <h1 class="sens">Smoke</h1>
+      <div class="cardiaque sensR" id="Cardiaque"></div>
+      <div class="sensR symb"></div>
+
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyClsSsK_a-_iyyFe29A3Ajt-GtA1ZNLcF0",
+        authDomain: "bracelelt-io.firebaseapp.com",
+        projectId: "bracelelt-io",
+        storageBucket: "bracelelt-io.firebasestorage.app",
+        messagingSenderId: "451398648713",
+        appId: "1:451398648713:web:88ac5801aa0fd2c0be5758",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      const temperature = document.getElementById("Temperature");
+      const humidity = document.getElementById("Humidity");
+      const cardiaque = document.getElementById("Smoke");
+
+      // Room Temperature (DHT22)
+      const temperatureRef = ref(database, "DHT22/TemperatureC");
+      onValue(temperatureRef, (snapshot) => {
+        const data = snapshot.val();
+        temperature.innerHTML = data;
+      });
+
+      // Humidity (DHT11)
+      const humidityRef = ref(database, "DHT22/Humidity");
+      onValue(humidityRef, (snapshot) => {
+        const data = snapshot.val();
+        humidity.innerHTML = data;
+      });
+
+      // Smoke MQ2
+      const heartRateRef = ref(database, "smoke/smoke");
+      onValue(heartRateRef, (snapshot) => {
+        const data = snapshot.val();
+        cardiaque.innerHTML = data;
+      });
+
+
+    </script>
+  </body>
+</html>
