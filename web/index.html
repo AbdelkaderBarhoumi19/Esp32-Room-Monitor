@@ -33,7 +33,7 @@
       <!-- Smoke -->
       <img src="icons/smoke.jpg" alt="heart rate" height="40px" />
       <h1 class="sens">Smoke</h1>
-      <div class="cardiaque sensR" id="Cardiaque"></div>
+      <div class="smoke sensR" id="Smoke"></div>
       <div class="sensR symb"></div>
 
     </div>
@@ -47,12 +47,12 @@
       } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
 
       const firebaseConfig = {
-        apiKey: "AIzaSyClsSsK_a-_iyyFe29A3Ajt-GtA1ZNLcF0",
-        authDomain: "bracelelt-io.firebaseapp.com",
-        projectId: "bracelelt-io",
-        storageBucket: "bracelelt-io.firebasestorage.app",
-        messagingSenderId: "451398648713",
-        appId: "1:451398648713:web:88ac5801aa0fd2c0be5758",
+        apiKey: ".......................",
+        authDomain: "......................",
+        projectId: ".........................",
+        storageBucket: "........................",
+        messagingSenderId: "......................",
+        appId: ".................................",
       };
 
       const app = initializeApp(firebaseConfig);
@@ -60,7 +60,7 @@
 
       const temperature = document.getElementById("Temperature");
       const humidity = document.getElementById("Humidity");
-      const cardiaque = document.getElementById("Smoke");
+      const smoke = document.getElementById("Smoke");
 
       // Room Temperature (DHT22)
       const temperatureRef = ref(database, "DHT22/TemperatureC");
@@ -69,7 +69,7 @@
         temperature.innerHTML = data;
       });
 
-      // Humidity (DHT11)
+      // Humidity (DHT22)
       const humidityRef = ref(database, "DHT22/Humidity");
       onValue(humidityRef, (snapshot) => {
         const data = snapshot.val();
@@ -77,10 +77,10 @@
       });
 
       // Smoke MQ2
-      const heartRateRef = ref(database, "smoke/smoke");
+      const heartRateRef = ref(database, "MQ2/Smoke");
       onValue(heartRateRef, (snapshot) => {
         const data = snapshot.val();
-        cardiaque.innerHTML = data;
+        smoke.innerHTML = data;
       });
 
 

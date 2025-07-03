@@ -3,12 +3,12 @@
 #include "DHT.h"
 
 // Wi-Fi credentials
-#define WIFI_SSID "Top Niveau"
-#define WIFI_PASSWORD "topniveau2017"
+#define WIFI_SSID "................."
+#define WIFI_PASSWORD "................"
 
 // Firebase credentials
-#define FIREBASE_HOST "https://bracelelt-io-default-rtdb.firebaseio.com/"
-#define FIREBASE_AUTH "nvotaBT5vxbofYqFq6X3kjNnnfYFzlfJUeCoLJdC"
+#define FIREBASE_HOST "........................................"
+#define FIREBASE_AUTH "....................................."
 
 // DHT Sensor setup
 #define DHTPIN 2
@@ -45,7 +45,7 @@ void setup() {
 }
 
 void sensor() {
-  // DHT11 readings
+  // DHT22 readings
   humidity = dht.readHumidity();
   temperatureC = dht.readTemperature();
 
@@ -68,11 +68,12 @@ void sensor() {
 }
 
 void loop() {
+
   sensor();
 
   // Send to Firebase
-  Firebase.setFloat(firebaseData, "/DHT11/Humidity", humidity);
-  Firebase.setFloat(firebaseData, "/DHT11/TemperatureC", temperatureC);
+  Firebase.setFloat(firebaseData, "/DHT22/Humidity", humidity);
+  Firebase.setFloat(firebaseData, "/DHT22/TemperatureC", temperatureC);
   Firebase.setInt(firebaseData, "/MQ2/Smoke", smoke_value);
 
   delay(2000);  // 2-second delay between readings
